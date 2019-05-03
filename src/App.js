@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Conditional from './Conditional';
 import Joke from './Joke';
 import jokesData from './jokesData';
 
@@ -19,6 +20,7 @@ class App extends React.Component {
     super()
 
     this.state = {
+      isLoading: true,
       isLoggedIn: true,
       jokes: jokesData,
     }
@@ -77,7 +79,11 @@ class App extends React.Component {
 
   // only run once, API calls
   componentDidMount() {
-
+    setTimeout(() => {
+      this.setState({
+        isLoading: false
+      })
+    }, 1500);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -114,6 +120,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        <Conditional isLoading={this.state.isLoading}/>
         <Header username="Francisco Roca"/>
         <h1>Logged In? {wordDisplay} <button onClick={this.changeLogInState}>Change State!</button></h1>
         {jokeComponents}
