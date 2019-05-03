@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Conditional from './Conditional';
+import Form from './Form';
 import Joke from './Joke';
 import jokesData from './jokesData';
 
@@ -20,14 +21,20 @@ class App extends React.Component {
     super()
 
     this.state = {
-      isLoading: true,
+      form: {
+        firstName: "",
+        lastName: "",
+      },
+      isLoading: false,
       isLoggedIn: true,
       jokes: jokesData,
+      character: {}
     }
 
     // BINDING CLICK EVENT TO THE CLASS
     this.changeLogInState = this.changeLogInState.bind(this);
     this.selectBox = this.selectBox.bind(this);
+
   }
 
   myJokes() {
@@ -79,11 +86,20 @@ class App extends React.Component {
 
   // only run once, API calls
   componentDidMount() {
-    setTimeout(() => {
+
+    this.setState({ isLoading: true });
+
+    fetch("https://swapi.co/api/people/1").then(res => 
+      res.json()
+    ).then(data => {
+
       this.setState({
-        isLoading: false
-      })
-    }, 1500);
+        isLoading: false,
+        character: data
+      });
+
+    });
+
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -122,8 +138,10 @@ class App extends React.Component {
       <div className="App">
         <Conditional isLoading={this.state.isLoading}/>
         <Header username="Francisco Roca"/>
+        <Form/>
         <h1>Logged In? {wordDisplay} <button onClick={this.changeLogInState}>Change State!</button></h1>
         {jokeComponents}
+        {this.state.character.name}
       </div>
     );
   }
