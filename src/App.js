@@ -71,10 +71,40 @@ class App extends React.Component {
         jokes: updatedJokes
       }
 
-    }); 
+    });
 
-    console.log(this.state.jokes)
+  }
 
+  // only run once, API calls
+  componentDidMount() {
+
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    // return the new updated state based upon the props
+  }
+
+  getSnapshotBeforeUpdate() {
+    // create a backup of the current way things are
+  }
+
+  // receive props from parent component
+  // runs everytime the component receive props
+  componentWillReceiveProps(nextProps) {
+  
+  }
+
+  // should rerender the component?
+  // gives us the chance to optimize our app
+  // implement some logic for update the component or not
+  shouldComponentUpdate(nextProps, nextState) {
+    // return true if we want to update
+    // return false if we dont want
+    return true;
+  }
+
+  componentWillUnmount() {
+    // cleanup your code before the component disappears
   }
 
   render() {
