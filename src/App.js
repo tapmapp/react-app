@@ -14,7 +14,10 @@ class Header extends React.Component {
 class App extends React.Component {
 
   constructor() {
-    
+    super()
+    this.state = {
+      isLoggedIn: true
+    }
   }
 
   myJokes() {
@@ -28,14 +31,23 @@ class App extends React.Component {
     );
   }
 
+  isLoggedIn() {
+    if(this.state.isLoggedIn) {
+      return 'IN';
+    } else {
+      return 'OUT';
+    }
+  }
+
   render() {
 
+    let wordDisplay = this.isLoggedIn();
     const jokeComponents = this.myJokes();
 
     return (
       <div className="App">
         <Header username="Francisco Roca"/>
-        <h1>This is my App Component and inside I have my Todo Item Component</h1>
+        <h1>Logged In? {wordDisplay}</h1>
         {jokeComponents}
       </div>
     )
