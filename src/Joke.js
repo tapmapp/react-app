@@ -4,10 +4,10 @@ import './Joke.css';
 
 function Joke(props) {
     return (
-        <div className="contact">
-            <img src={props.imgUrl} alt={props.name}/>
-            <h1>{props.name}</h1>
-            <p>{props.desc}</p>
+        <div className="contact" onClick={() => props.selectBox(props.item.id)}>
+            <img src={props.item.imgUrl} alt={props.item.name}/>
+            <h1>{props.item.name}</h1>
+            <p>{props.item.desc}</p>
         </div>
     )
 }

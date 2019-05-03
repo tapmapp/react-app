@@ -19,21 +19,21 @@ class App extends React.Component {
     super()
 
     this.state = {
-      isLoggedIn: true
+      isLoggedIn: true,
+      jokes: jokesData,
     }
 
     // BINDING CLICK EVENT TO THE CLASS
     this.changeLogInState = this.changeLogInState.bind(this);
-
+    this.selectBox = this.selectBox.bind(this);
   }
 
   myJokes() {
     return jokesData.map(joke => 
       <Joke 
         key={joke.id}
-        name={joke.title} 
-        desc={joke.desc}
-        imgUrl="http://placekitten.com/300/400"
+        item={joke}
+        selectBox={this.selectBox}
       />
     );
   }
@@ -52,6 +52,29 @@ class App extends React.Component {
       return { isLoggedIn: !prevState.isLoggedIn };
     });
     
+  }
+
+  selectBox(id) {
+
+    this.setState(prevState => {
+
+      const updatedJokes = prevState.jokes.map(joke => {
+        if(joke.id === id) {
+          joke.state = !joke.state
+        } else {
+          joke.state = false;
+        }
+        return joke;
+      });
+
+      return {
+        jokes: updatedJokes
+      }
+
+    }); 
+
+    console.log(this.state.jokes)
+
   }
 
   render() {
